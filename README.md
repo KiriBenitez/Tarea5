@@ -243,6 +243,7 @@ g41 = ggplot(betas) +
 grid.arrange(g11,g21,g31,g41)
 
 ```
+![pregunta 3 b](https://user-images.githubusercontent.com/44781743/48627197-b7073500-e992-11e8-8942-b371efcc8a58.jpeg)
 
 ### Pregunta 3.c
 
