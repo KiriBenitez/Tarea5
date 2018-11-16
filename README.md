@@ -19,9 +19,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Pregunta 3
+## Pregunta 3
 
-##Pregunta 3.a
+# Pregunta 3.a
 
 A continuacion se mostra el codigo que se uso para resolver la pregunta.
 
@@ -93,7 +93,7 @@ n=1000;x4= 0.001013762  x8= 0.001014232
 Como se puede apreciar, los estimadores presentan sesgos en su estimacion, lo cual a medida que auqmentan e numero de variables se va reduciendo para ser igual a los estimadores poblacionales.
 
 
-## Pregunta 3.b
+# Pregunta 3.b
 
 A continuacion se presenta el grafico 
 
@@ -172,7 +172,7 @@ grid.arrange(g11,g21,g31,g41)
 
 ```
 
-## Pregunta 3.c
+# Pregunta 3.c
 
 A continuacion se usara la variante donde x2 ??? U[0, 1], para luego proceder a hacer el mismo procedimiento que las partes a y b
 
@@ -323,8 +323,4 @@ For more details see [GitHub Flavored Markdown](https://guides.github.com/featur
 
 ### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/KiriBenitez/Tarea5/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+A continuación, las fotos correspondientes a los resultados:
