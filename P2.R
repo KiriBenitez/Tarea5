@@ -1,19 +1,5 @@
----
-title: "Parte 2"
-author: "Diego Canelo"
-date: "16/11/2018"
-output: pdf_document
----
+# PREGUNTA 2
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Pregunta 2
-
-A continuacion se descargan los precios de las acciones de Microsoft("MSFT") y de Apple("AAPL")
-
-```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(tidyquant)
 library(tidyverse)
 library(dplyr)
@@ -24,11 +10,7 @@ data_activos=tq_get(tickers,
                     from="2000-01-01",
                     to="2018-08-31",
                     periodicity="monthly")
-```
 
-## 2.a. Se crea la funcion para calcular retornos:
-
-```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Funcion que calcula retorno de activos
 funcion_retornos=function(df){
   retorno_activos=df %>%
@@ -42,13 +24,8 @@ funcion_retornos=function(df){
 }
 # Calculando retornos
 retorno_activos=funcion_retornos(data_activos)
-print(retorno_activos)
-```
 
-
-## 2.b. Se crea la función para graficar retornos:
-
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Funcion que grafica retornos
 grafico_retorno=function(x){
   ggplot(x) + geom_line(mapping=aes(date, retornos.mensuales, color=symbol)) +
     labs(title="Retornos accionarios",
@@ -58,12 +35,7 @@ grafico_retorno=function(x){
 # Graficando retornos
 grafico_retorno(retorno_activos)
 
-```
-
-## Función para calcular y graficar retornos acumulados:
-
-```{r echo=TRUE, message=FALSE, warning=FALSE}
-
+# Funcion que calcula y grafica retornos acumulados
 grafico_retorno_acum=function(x){
   retcum=x%>%
     mutate(cum_ret=cumsum(retornos.mensuales))
@@ -75,8 +47,46 @@ grafico_retorno_acum=function(x){
 }
 # Graficando retornos acumulados
 grafico_retorno_acum(retorno_activos)
-```
 
-## 2.c. Test de normalidad Jarque-Bera
-
-El test de normalidad fue programado sin embargo, generaba error al momento de compilarlo. Su desarrollo se encuentra detallado en el R script.
+# Funcion que testea normalidad con Jarque Bera
+  n<-(count(retornos))
+  promedio<-as.numeric(mean(retornos))
+  
+  #skewness_a
+  resultado_a <- vector()
+  for(i in 1:n){
+  resultado_a <- c(resultado_a,((retornos[i]-promedio)^3))
+  }
+  sk_a<-1/n*sum(resultado_a)
+  #skewness_b
+  resultado_b <- vector()
+  for(i in 1:n){
+  resultado_b <- c(resultado_b,((retornos[i]-promedio)^2))
+  }
+  sk_b<-(1/n*sum(resultado_b))^(3/2)
+  #sk_final
+  sk_final<-sk_a/sk_b
+  
+  #kurtosis_a
+  resultado_ka <- vector()
+  
+  for(i in 1:n){
+  resultado_ka <- c(resultado_ka,((retornos[i]-promedio)^4))
+  }
+  kurt_a<-1/n*sum(resultado_ka)
+  
+  #skewness_b
+  resultado_kb <- vector()
+  
+  for(i in 1:n){
+  resultado_kb <- c(resultado_kb,((retornos[i]-promedio)^2))
+  }
+  
+  kurt_b<-(1/n*sum(resultado_kb))^(2)
+  #sk_final
+  kurt_final<-kurt_a/kurt_b
+  jb<-n*(((sk_final^2)/6)+(((kurt_final-3)^2)/24))
+  
+  #contraste de hipótesis, si JB>X(a,2)^2 (5,99 a un nivel de significancia del 5%), entonces se rechaza la hipotesis nula
+  if (jb>5.99) {print("Se rechaza la hipotesis nula. Los datos no siguen una distribucion normal")} 
+  else{print("No se puede rechazar la hipótesis nula. Los datos siguen una distribución normal")}
