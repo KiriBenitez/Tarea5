@@ -19,7 +19,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Pregunta 3
+##Pregunta 3
 
 # Pregunta 3.a
 
@@ -175,7 +175,6 @@ grid.arrange(g11,g21,g31,g41)
 # Pregunta 3.c
 
 A continuacion se usara la variante donde x2 ??? U[0, 1], para luego proceder a hacer el mismo procedimiento que las partes a y b
-
 
 # 3.C.A
 
