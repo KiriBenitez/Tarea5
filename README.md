@@ -2,7 +2,7 @@
 
 Como grupo, quicieramos indicar que lo que está presente en este trabajo es resultado de horas de lucha intensa. De cualquier manera, adjuntamos al correo el R.script correspondiente y su R Markdown.
 
-### Tarea 5
+# Tarea 5
 
 A continuación el código R Markdown
 
@@ -19,9 +19,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##Pregunta 3
+## Pregunta 3
 
-# Pregunta 3.a
+### Pregunta 3.a
 
 A continuacion se mostra el codigo que se uso para resolver la pregunta.
 
@@ -93,7 +93,7 @@ n=1000;x4= 0.001013762  x8= 0.001014232
 Como se puede apreciar, los estimadores presentan sesgos en su estimacion, lo cual a medida que auqmentan e numero de variables se va reduciendo para ser igual a los estimadores poblacionales.
 
 
-# Pregunta 3.b
+### Pregunta 3.b
 
 A continuacion se presenta el grafico 
 
@@ -172,11 +172,11 @@ grid.arrange(g11,g21,g31,g41)
 
 ```
 
-# Pregunta 3.c
+### Pregunta 3.c
 
 A continuacion se usara la variante donde x2 ??? U[0, 1], para luego proceder a hacer el mismo procedimiento que las partes a y b
 
-# 3.C.A
+### 3.C.A
 
 ```{r}
 library(ggplot2)
@@ -240,7 +240,7 @@ n=1000;x4= 0.001013762  x8= 0.001014232
 
 Como se logra a apreciar presenta os mismos resultados que la variante de x2 = 0, 8x1 + e, lo cual se puede traducir que el estimador presenta sesgo, lo cual se ve disminuido a medida que aumenta el numero de observaciones
 
-# 3.C.B
+### 3.C.B
 
 A continuacion mostramos el grafico de grilla de acuerdo a las nuevas indicaciones
 
