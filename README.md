@@ -2,7 +2,7 @@
 
 Como grupo, quicieramos indicar que lo que está presente en este trabajo es resultado de horas de lucha intensa. De cualquier manera, adjuntamos al correo el R.script correspondiente y su R Markdown.
 
-# Tarea 5
+### Tarea 5
 
 A continuación el código R Markdown
 
@@ -38,7 +38,7 @@ data_activos=tq_get(tickers,
                     periodicity="monthly")
 ```
 
-## 2.a. Se crea la funcion para calcular retornos:
+### 2.a. Se crea la funcion para calcular retornos:
 
 ```{r}
 
@@ -60,7 +60,7 @@ print(retorno_activos)
 ```
 ![2aa](https://user-images.githubusercontent.com/44781743/48628088-16664480-e995-11e8-81a6-ff79410aa718.jpg)
 
-## 2.b. Se crea la función para graficar retornos:
+### 2.b. Se crea la función para graficar retornos:
 
 ```{r}
 
@@ -76,7 +76,7 @@ grafico_retorno(retorno_activos)
 ```
 ![2b](https://user-images.githubusercontent.com/44781743/48628172-47df1000-e995-11e8-8398-e07be200cd5b.jpg)
 
-## Función para calcular y graficar retornos acumulados:
+### Función para calcular y graficar retornos acumulados:
 
 ```{r}
 
