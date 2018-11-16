@@ -1,17 +1,103 @@
-## Welcome to GitHub Pages
+## Bienvenido a nuestro trabajo de R
 
-You can use the [editor on GitHub](https://github.com/KiriBenitez/Tarea5/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Como grupo, quicieramos indicar que lo que está presente en este trabajo es resultado de horas de lucha intensa. De cualquier manera, adjuntamos al correo el R.script correspondiente y su R Markdown.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Tarea 5
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+A continuación el código R Markdown
 
 ```markdown
-### TAREA 5
+title: "Tarea 5"
+author: "Mauricio Ortiz Bustos"
+date: "16 de noviembre de 2018"
+output:
+  html_document:
+    df_print: paged
+---
 
-##Pregunta 3
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Pregunta 3
+
+##Pregunta 3.a
+
+A continuacion se mostra el codigo que se uso para resolver la pregunta.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+
+#Se genera la matriz de betas son de 8 columnas por que son 2 modelos y 4 tipo de poblaciones 
+set.seed(150)
+repeticiones=10000
+betas=matrix(NA,nrow = repeticiones,ncol = 8)
+
+beta0=2
+beta1=2.5
+beta2=1
+
+su=1
+
+n=c(50,100,500,1000)
+
+#En esta parte lo que hace es que recorre cada tipo de poblacion, de acuerdo a las x sub i que existan
+
+for (j in 1:length(n)) {
+  x1=rnorm(n[j],20,1)
+  x2=(0.8*x1)+rnorm(n[j],0,1)
+  
+  #En esta parte es un for oor lo cual aqui hace las 10.000 repeticiones de acuerdo a los modelos que se dan
+  for (i in 1:repeticiones) {
+    u=rnorm(n[j],0,su)
+    Y0=beta0+beta1*x1+u
+    Y1=beta0+beta1*x1+beta2*x2+u
+    
+    model0=lm(Y0~x1)
+    betas[i,j]=model0$coef[2]
+    
+    model1=lm(Y1~x1+x2)
+    betas[i,j+4]=model1$coef[2]
+    # despues de las 10.000 vuele a saeguir con la otra poblacion de 100, 500 y 1000
+  }
+  
+}
+
+## Pregunta 3.1
+
+betas=data.frame(betas)
+
+apply(betas,2,mean)
+apply(betas,2,var)
+
+```
+
+Como se puede ver en los resultados;
+
+Medias
+
+n= 50; x1= 2.498373 x5= 2.498540
+n=100; x2= 2.500226 x6= 2.500004
+n=500; x3= 2.500369 x7= 2.500364
+n=1000;x4= 2.500255 x8= 2.500256
+
+Varianza
+
+n= 50; x1= 0.017026304  x5= 0.017085116
+n=100; x2= 0.011075094  x6= 0.011273960
+n=500; x3= 0.002032209  x7= 0.002035101
+n=1000;x4= 0.001013762  x8= 0.001014232
+
+Como se puede apreciar, los estimadores presentan sesgos en su estimacion, lo cual a medida que auqmentan e numero de variables se va reduciendo para ser igual a los estimadores poblacionales.
+
+
+## Pregunta 3.b
+
+A continuacion se presenta el grafico 
+
+```{r}
 
 library(ggplot2)
 library(dplyr)
@@ -36,7 +122,7 @@ for (j in 1:length(n)) {
   x1=rnorm(n[j],20,1)
   x2=(0.8*x1)+rnorm(n[j],0,1)
   
-  #En esta parte es un for por lo cual aqui hace las 10.000 repeticiones de acuerdo a los modelos que se dan
+  #En esta parte es un for oor lo cual aqui hace las 10.000 repeticiones de acuerdo a los modelos que se dan
   for (i in 1:repeticiones) {
     u=rnorm(n[j],0,su)
     Y0=beta0+beta1*x1+u
@@ -52,14 +138,8 @@ for (j in 1:length(n)) {
   
 }
 
-## Pregunta 3.1
-
 betas=data.frame(betas)
 
-apply(betas,2,mean)
-apply(betas,2,var)
-
-## Pregunta 3.2
 
 g11=ggplot(betas) + geom_histogram(aes(betas[,5],y=..density..), col="black", bins = 30) +   #bins cantidad de barritas
   stat_function(fun = rnorm, args = list(mean=mean(betas[,5]), sd = sd(betas[,6])),
@@ -90,7 +170,16 @@ g41 = ggplot(betas) +
 
 grid.arrange(g11,g21,g31,g41)
 
-#Pregunta 3.C
+```
+
+## Pregunta 3.c
+
+A continuacion se usara la variante donde x2 ??? U[0, 1], para luego proceder a hacer el mismo procedimiento que las partes a y b
+
+
+# 3.C.A
+
+```{r}
 library(ggplot2)
 library(dplyr)
 library(gridExtra)
@@ -131,7 +220,74 @@ betas_2=data.frame(betas)
 apply(betas_2,2,mean)
 apply(betas_2,2,var)
 
-#3.C.C.B
+
+```
+
+Como se puede ver en los resultados;
+
+Medias
+
+n= 50; x1= 2.498373 x5= 2.498540
+n=100; x2= 2.500226 x6= 2.500004
+n=500; x3= 2.500369 x7= 2.500364
+n=1000;x4= 2.500255 x8= 2.500256
+
+Varianza
+
+n= 50; x1= 0.017026304  x5= 0.017085116
+n=100; x2= 0.011075094  x6= 0.011273960
+n=500; x3= 0.002032209  x7= 0.002035101
+n=1000;x4= 0.001013762  x8= 0.001014232
+
+Como se logra a apreciar presenta os mismos resultados que la variante de x2 = 0, 8x1 + e, lo cual se puede traducir que el estimador presenta sesgo, lo cual se ve disminuido a medida que aumenta el numero de observaciones
+
+# 3.C.B
+
+A continuacion mostramos el grafico de grilla de acuerdo a las nuevas indicaciones
+
+```{r}
+
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+
+set.seed(150)
+repeticiones=10000
+betas=matrix(NA,nrow = repeticiones,ncol = 8)
+
+beta0=2
+beta1=2.5
+beta2=1
+
+su=1
+
+n=c(50,100,500,1000)
+
+for (j in 1:length(n)) {
+  x1=rnorm(n[j],20,1)
+  x2=rnorm(n[j],0,su)
+  
+  for (i in 1:repeticiones) {
+    u=rnorm(n[j],0,su)
+    Y0=beta0+beta1*x1+u
+    Y1=beta0+beta1*x1+beta2*x2+u
+    
+    model0=lm(Y0~x1)
+    betas[i,j]=model0$coef[2]
+    
+    model1=lm(Y1~x1+x2)
+    betas[i,j+4]=model1$coef[2]
+    
+  }
+  
+}
+
+betas_2=data.frame(betas)
+
+apply(betas_2,2,mean)
+apply(betas_2,2,var)
+
+## 3.C.C.B
 
 g11=ggplot(betas_2) + geom_histogram(aes(betas_2[,5],y=..density..), col="black", bins = 30) +   #bins cantidad de barritas
   stat_function(fun = rnorm, args = list(mean=mean(betas_2[,5]), sd = sd(betas_2[,6])),
