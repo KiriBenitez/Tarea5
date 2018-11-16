@@ -8,7 +8,7 @@ A continuación el código R Markdown
 
 ```markdown
 title: "Tarea 5"
-author: "Mauricio Ortiz Bustos"
+author: "Benítez - Canelo - Ortiz"
 date: "16 de noviembre de 2018"
 output:
   html_document:
@@ -17,6 +17,73 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Pregunta 2
+
+A continuacion se descargan los precios de las acciones de Microsoft("MSFT") y de Apple("AAPL")
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyquant)
+library(tidyverse)
+library(dplyr)
+# Creando DF con precios de acciones
+tickers=c("MSFT", "AAPL")
+data_activos=tq_get(tickers,
+                    get="stock.prices",
+                    from="2000-01-01",
+                    to="2018-08-31",
+                    periodicity="monthly")
+```
+
+## 2.a. Se crea la funcion para calcular retornos:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Funcion que calcula retorno de activos
+funcion_retornos=function(df){
+  retorno_activos=df %>%
+    group_by(symbol) %>%
+    tq_transmute(select=close,
+                 mutate_fun=periodReturn,
+                 period="monthly",
+                 type="log",
+                 col_rename="retornos.mensuales")
+  return(retorno_activos)
+}
+# Calculando retornos
+retorno_activos=funcion_retornos(data_activos)
+print(retorno_activos)
+```
+
+## 2.b. Se crea la función para graficar retornos:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+grafico_retorno=function(x){
+  ggplot(x) + geom_line(mapping=aes(date, retornos.mensuales, color=symbol)) +
+    labs(title="Retornos accionarios",
+         x="Año", y="% retorno")
+}
+
+# Graficando retornos
+grafico_retorno(retorno_activos)
+
+```
+
+## Función para calcular y graficar retornos acumulados:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+grafico_retorno_acum=function(x){
+  retcum=x%>%
+    mutate(cum_ret=cumsum(retornos.mensuales))
+  
+  ggplot(retcum) + geom_line(mapping=aes(date, cum_ret, color=symbol)) +
+    labs(title="Retornos acumulados",
+         x="Año", y="% retorno acumulado") +
+    guides(fill=guide_legend(title="Acciones"))
+}
+# Graficando retornos acumulados
+grafico_retorno_acum(retorno_activos)
 ```
 
 ## Pregunta 3
@@ -321,5 +388,3 @@ grid.arrange(g11,g21,g31,g41)
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
 ### Jekyll Themes
-
-A continuación, las fotos correspondientes a los resultados:
