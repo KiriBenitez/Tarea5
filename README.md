@@ -390,6 +390,9 @@ g41 = ggplot(betas_2) +
 
 grid.arrange(g11,g21,g31,g41)
 ```
+### Resultado de 3.C.B
+
+![pregunta 3 c b](https://user-images.githubusercontent.com/44781743/48627348-1c5b2600-e993-11e8-8822-13f2e15e472f.jpeg)
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
