@@ -58,6 +58,7 @@ retorno_activos=funcion_retornos(data_activos)
 print(retorno_activos)
 
 ```
+![2aa](https://user-images.githubusercontent.com/44781743/48628088-16664480-e995-11e8-81a6-ff79410aa718.jpg)
 
 ## 2.b. Se crea la función para graficar retornos:
 
@@ -73,6 +74,7 @@ grafico_retorno=function(x){
 grafico_retorno(retorno_activos)
 
 ```
+![2b](https://user-images.githubusercontent.com/44781743/48628172-47df1000-e995-11e8-8398-e07be200cd5b.jpg)
 
 ## Función para calcular y graficar retornos acumulados:
 
@@ -90,6 +92,7 @@ grafico_retorno_acum=function(x){
 # Graficando retornos acumulados
 grafico_retorno_acum(retorno_activos)
 ```
+![2c](https://user-images.githubusercontent.com/44781743/48628241-6e04b000-e995-11e8-9865-1d77477b90cb.jpg)
 
 ## Pregunta 3
 
