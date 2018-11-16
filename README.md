@@ -18,16 +18,18 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 ## Pregunta 2
 
 A continuacion se descargan los precios de las acciones de Microsoft("MSFT") y de Apple("AAPL")
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r}
+
 library(tidyquant)
 library(tidyverse)
 library(dplyr)
+
 # Creando DF con precios de acciones
+
 tickers=c("MSFT", "AAPL")
 data_activos=tq_get(tickers,
                     get="stock.prices",
@@ -38,7 +40,8 @@ data_activos=tq_get(tickers,
 
 ## 2.a. Se crea la funcion para calcular retornos:
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r}
+
 # Funcion que calcula retorno de activos
 funcion_retornos=function(df){
   retorno_activos=df %>%
@@ -53,11 +56,13 @@ funcion_retornos=function(df){
 # Calculando retornos
 retorno_activos=funcion_retornos(data_activos)
 print(retorno_activos)
+
 ```
 
 ## 2.b. Se crea la función para graficar retornos:
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r}
+
 grafico_retorno=function(x){
   ggplot(x) + geom_line(mapping=aes(date, retornos.mensuales, color=symbol)) +
     labs(title="Retornos accionarios",
@@ -71,7 +76,7 @@ grafico_retorno(retorno_activos)
 
 ## Función para calcular y graficar retornos acumulados:
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r}
 
 grafico_retorno_acum=function(x){
   retcum=x%>%
