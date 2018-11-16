@@ -94,6 +94,54 @@ grafico_retorno_acum(retorno_activos)
 ```
 ![2c](https://user-images.githubusercontent.com/44781743/48628241-6e04b000-e995-11e8-9865-1d77477b90cb.jpg)
 
+### Funcion que testea normalidad con Jarque Bera
+
+Para esta pregunta presentamos el script final:
+
+```{r}
+  n<-(count(retornos))
+  promedio<-as.numeric(mean(retornos))
+  
+  #skewness_a
+  resultado_a <- vector()
+  for(i in 1:n){
+  resultado_a <- c(resultado_a,((retornos[i]-promedio)^3))
+  }
+  sk_a<-1/n*sum(resultado_a)
+  #skewness_b
+  resultado_b <- vector()
+  for(i in 1:n){
+  resultado_b <- c(resultado_b,((retornos[i]-promedio)^2))
+  }
+  sk_b<-(1/n*sum(resultado_b))^(3/2)
+  #sk_final
+  sk_final<-sk_a/sk_b
+  
+  #kurtosis_a
+  resultado_ka <- vector()
+  
+  for(i in 1:n){
+  resultado_ka <- c(resultado_ka,((retornos[i]-promedio)^4))
+  }
+  kurt_a<-1/n*sum(resultado_ka)
+  
+  #skewness_b
+  resultado_kb <- vector()
+  
+  for(i in 1:n){
+  resultado_kb <- c(resultado_kb,((retornos[i]-promedio)^2))
+  }
+  
+  kurt_b<-(1/n*sum(resultado_kb))^(2)
+  #sk_final
+  kurt_final<-kurt_a/kurt_b
+  jb<-n*(((sk_final^2)/6)+(((kurt_final-3)^2)/24))
+  
+  #contraste de hipótesis, si JB>X(a,2)^2 (5,99 a un nivel de significancia del 5%), entonces se rechaza la hipotesis nula
+  if (jb>5.99) {print("Se rechaza la hipotesis nula. Los datos no siguen una distribucion normal")} 
+  else{print("No se puede rechazar la hipótesis nula. Los datos siguen una distribución normal")}
+```
+
 ## Pregunta 3
 
 ### Pregunta 3.a
